@@ -34,6 +34,10 @@ public class User implements UserDetails {
         this.role = role;
     }
 
+    public static UserBuilder builder() {
+        return new UserBuilder();
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
@@ -112,5 +116,63 @@ public class User implements UserDetails {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public static class UserBuilder {
+        private Integer id;
+        private String firstName;
+        private String lastName;
+        private String email;
+        private String password;
+        private Role role;
+
+        UserBuilder() {
+        }
+
+        public UserBuilder id(Integer id) {
+            this.id = id;
+            return this;
+        }
+
+        public UserBuilder firstName(String firstName) {
+            this.firstName = firstName;
+            return this;
+        }
+
+        public UserBuilder lastName(String lastName) {
+            this.lastName = lastName;
+            return this;
+        }
+
+        public UserBuilder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public UserBuilder password(String password) {
+            this.password = password;
+            return this;
+        }
+
+        public UserBuilder role(Role role) {
+            this.role = role;
+            return this;
+        }
+
+        public User build() {
+            return new User(id, firstName, lastName, email, password, role);
+        }
+
+        @Override
+        public String toString() {
+            return "UserBuilder{" +
+                    "id=" + id +
+                    ", firstName='" + firstName + '\'' +
+                    ", lastName='" + lastName + '\'' +
+                    ", email='" + email + '\'' +
+                    ", password='" + password + '\'' +
+                    ", role=" + role +
+                    '}';
+        }
     }
 }

@@ -12,6 +12,10 @@ public class SigninRequest {
         this.password = password;
     }
 
+    public static SigninRequestBuilder builder() {
+        return new SigninRequestBuilder();
+    }
+
     public String getEmail() {
         return email;
     }
@@ -26,5 +30,27 @@ public class SigninRequest {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public static class SigninRequestBuilder {
+        private String email;
+        private String password;
+
+        SigninRequestBuilder() {
+        }
+
+        public SigninRequestBuilder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public SigninRequestBuilder password(String password) {
+            this.password = password;
+            return this;
+        }
+
+        public SigninRequest build() {
+            return new SigninRequest(email, password);
+        }
     }
 }
